@@ -69,7 +69,7 @@ export default function EscolhaServicos({ navigation, route }) {
         setCompareceu("Aguardando")
 
 
-        let response = await fetch('http://192.168.0.101:3000/agendar/consulta', {
+        let response = await fetch('http://10.0.3.178:3000/agendar/consulta', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -119,7 +119,7 @@ export default function EscolhaServicos({ navigation, route }) {
 
 
     async function buscarHorario() {
-        let response = await fetch('http://192.168.0.101:3000/buscarHorario', {
+        let response = await fetch('http://10.0.3.178:3000/buscarHorario', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -151,7 +151,7 @@ export default function EscolhaServicos({ navigation, route }) {
 
     async function buscarProfissionais(){
         
-            await fetch('http://192.168.0.101:3000/listarProfissionaisEspecialidade/' + especialidade)
+            await fetch('http://10.0.3.178:3000/listarProfissionaisEspecialidade/' + especialidade)
             .then(res => res.json())
             .then(res => {
                 setNomeProfissional(res)
@@ -159,7 +159,7 @@ export default function EscolhaServicos({ navigation, route }) {
     }
 
     async function buscarEspecialidade(){
-        await fetch('http://192.168.0.101:3000/listarEspecialidades')
+        await fetch('http://10.0.3.178:3000/listarEspecialidades')
         .then(res => res.json())
         .then(res => {
             setNomeEspecialidade(res)
@@ -175,7 +175,7 @@ export default function EscolhaServicos({ navigation, route }) {
     )
 
     async function buscarUnidades(){
-        await fetch('http://192.168.0.101:3000/listarUnidades')
+        await fetch('http://10.0.3.178:3000/listarUnidades')
         .then(res => res.json())
         .then(res => {
             setNomeUnidades(res)

@@ -1,178 +1,107 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, Alert, ScrollView, Dimensions } from "react-native";
 
-import medico1 from "../../../assets/medicos/medico1.jpg";
-import medico2 from "../../../assets/medicos/medico2.jpg";
-import medico3 from "../../../assets/medicos/medico3.jpg";
+import { TextInput, Text, View, TouchableOpacity, Image, Alert, ScrollView, Dimensions, FlatList } from "react-native";
+
+// import medico1 from "../../../assets/medicos/medico1.jpg";
+// import medico2 from "../../../assets/medicos/medico2.jpg";
+// import medico3 from "../../../assets/medicos/medico3.jpg";
 
 import BackgroundImage from '../../../assets/Login/fundoOficial.png';
+
+import styles from '../../Agendar/styleAgenda';
 
 import { useNavigation } from '@react-navigation/native';
 
 import { Rating } from "react-native-ratings";
+import React, { useState, useEffect } from "react";
+
+
 export default function App() {
+
+  const [nomeProfissional, setNomeProfissional] = useState([]);
+
+  const [pesquisarNomeProfissional, setPesquisarNomeProfissional] = useState()
+
+
+  async function buscarProfissionais() {
+    await fetch('http://10.0.3.178:3000/listarProfissionais')
+      .then(res => res.json())
+      .then(res => {
+        setNomeProfissional(res)
+      })
+
+    console.log(nomeProfissional)
+  }
+
+  useEffect(
+    () => {
+      buscarProfissionais()
+    }, []
+  )
+
+
+
 
   const navigation = useNavigation();
 
   const { height, width } = Dimensions.get("screen")
 
+
   return (
-    
+
+
+
     <View style={styles.container}>
 
       <View style={styles.viewParaImagem}>
 
         <Image style={styles.imgFundoCadastro} source={BackgroundImage} />
 
-        <View style={styles.viewTxtAgendar}>
-          <Text style={styles.txtAgendar}>Nossos profissionais</Text>
-        </View>
-      </View>
-      <View style={styles.profissionais}>
-
-        <View style={styles.fotos}>
-          <Image
-            style={{ width: "100%", height: 88, borderRadius: 16 }}
-            source={medico2}
-          />
-        </View>
-
-        <View style={styles.rating}>
-          <Text style={styles.textNomes}> Antônio José</Text>
-          <Text style={{color: 'grey'}}>Cardio</Text>
-          <Rating
-            type="heart"
-            ratingCount={5}
-            imageSize={15}
-            onFinishRating={rating => {
-              Alert.alert("Heart Rating: " + JSON.stringify(rating));
-            }}
-          />
-        </View>
       </View>
 
-      <View style={styles.profissionais}>
-        <View style={styles.fotos}>
-          <Image
-            style={{ width: 88, height: 88, borderRadius: 16 }}
-            source={medico1}
-          />
-        </View>
-        <View style={styles.rating}>
-          <Text style={styles.textNomes}> Marcos Vini</Text>
-          <Text style={{color: 'grey'}}>Neurologista</Text>
-          <Rating
-            type="heart"
-            ratingCount={5}
-            imageSize={15}
-            onFinishRating={rating => {
-              Alert.alert("Heart Rating: " + JSON.stringify(rating));
-            }}
-          />
-        </View>
-      </View>
+      <View style={styles.viewTxtAgendar}>
 
+        <Text style={styles.txtAgendar}>Profissionais</Text>
 
-      <View style={styles.profissionais}>
-        <View style={styles.fotos}>
-          <Image
-            style={{ width: 88, height: 88, borderRadius: 16 }}
-            source={medico3}
-          />
-        </View>
-        <View style={styles.rating}>
-          <Text style={styles.textNomes}>Cicera Macaiana</Text>
-          <Text style={{color: 'grey'}}>Obstetra</Text>
-          <Rating
-            type="heart"
-            ratingCount={5}
-            imageSize={15}
-            onFinishRating={rating => {
-              Alert.alert("Heart Rating: " + JSON.stringify(rating));
-            }}
-          />
-        </View>
       </View>
+      
+      <FlatList
+        keyExtractor={(chave)=> chave.idProfissionais}
+        data={nomeProfissional}
+
+        renderItem={({ item }) => (
+          <ScrollView >
+          <View  style={{ width: '90%', height: height / 10,marginLeft: '5%', marginBottom: 15, backgroundColor: 'white' }}>
+         
+            <TouchableOpacity  style={{borderColor:  '#04459ba', borderWidth: 1, padding: 10, borderRadius: 10}}>
+
+             
+              
+              <Text style={{fontSize: 16,fontWeight: "bold", color:'#04459b' }}>
+                  Nome Profissional: <Text style={{fontWeight: 'normal', color: 'black'}}> {item.nomeProfissional}</Text>
+                </Text>
+
+                <Text style={{fontSize: 16,fontWeight: "bold", color:'#04459b' }}>
+                  Especialidade: <Text style={{fontWeight: 'normal', color: 'black'}}>{item.especialidade}</Text>
+                </Text>
+
+                <Text style={{fontSize: 16,fontWeight: "bold", color:'#04459b' }}>
+                  CRM: <Text style={{fontWeight: 'normal', color: 'black'}}>{item.crm}</Text>
+                </Text>
+                
+              
+            </TouchableOpacity>
+         
+
+          </View>
+          </ScrollView>
+        )}
+
+      >
+
+      </FlatList>
+
     </View>
 
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFFF",
-  },
-
-
-  viewParaImagem: {
-    width: '100%',
-    height: '40%',
-  },
-
-  imgFundoCadastro: {
-    width: "100%",
-    height: '100%',
-    borderBottomRightRadius: 100,
-    borderBottomLeftRadius: 100,
-    resizeMode: 'stretch'
-  },
-
-  viewTxtAgendar: {
-
-    width: '100%',
-    height: 'auto',
-    padding: 5,
-    borderRadius: 10,
-    position: 'absolute',
-    marginTop: '55%',
-    backgroundColor: 'white',
-    display: 'flex',
-    justifyContent: 'center'
-  },
-
-  txtAgendar: {
-    color: '#04459b',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 16,
-
-  },
-
-  textNomes: {
-    color: "#0459ba",
-    fontWeight: "bold",
-    marginLeft: -2,
-    fontSize: 16
-    
-
-  },
-  profissionais: {
-    width: "80%",
-    height: 110,
-    backgroundColor: "#FFF",
-    borderRadius: 16,
-    flexDirection: "row",
-    margin: 10,
-    elevation: 5,
-    marginLeft: '10%',
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-
-  fotos: {
-    width: '25%',
-    height: 88,
-    borderRadius: 20,
-    marginLeft: 15,
-    margin: 10,
-  },
-  rating: {
-    flexDirection: 'column', 
-    width: '65%', 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'flex-start',
-    
-  },
-});

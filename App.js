@@ -26,6 +26,7 @@ import Carrinho from './TelasHome/Agendar/carrinho/carrinho';
 import CarrinhoHome from './TelasHome/Home/CarrinhoHome/carrinhoHome';
 import Exames from './TelasHome/Agendar/Exames/exames';
 import Vacinas from './TelasHome/Agendar/vacinas/vacinas';
+import Localizacao from './TelasHome/Ajustes/localizacao/localizacao';
 
 //importações Home
 import FaleConosco from './TelasHome/Home/FaleConosco/faleConosco';
@@ -42,7 +43,7 @@ export default function App() {
   return (
     <NavigationContainer>
 
-      <Stack.Navigator initialRouteName='login'>
+      <Stack.Navigator initialRouteName='perfil'>
 
         <Stack.Screen name="login" component={Login}
           options={{
@@ -56,11 +57,17 @@ export default function App() {
           }}
         />
 
+        <Stack.Screen name="Localizacao" component={Localizacao}
+          options={{
+            headerTitle: ' '
+          }}
+        />
+
         <Stack.Screen name='carrinhoHome' component={CarrinhoHome} />
 
         <Stack.Screen name="profissionais" component={Profissionais}
           options={{
-            headerShown: false
+            headerTitle: ' '
           }}
         />
 
@@ -105,7 +112,11 @@ export default function App() {
         <Stack.Screen name='agendar' component={Agendar} />
 
         <Stack.Screen name='termos' component={Termos} />
-        <Stack.Screen name='perfil' component={Perfil} />
+        <Stack.Screen name='perfil' component={Perfil} 
+        
+        options={{ title: 'Perfil', headerTitleAlign: 'center' }}
+
+        />
 
 
         <Stack.Screen name="areaRestrita" component={AreaRestritaUsuario} />

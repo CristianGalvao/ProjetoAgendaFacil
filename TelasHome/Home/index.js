@@ -9,6 +9,8 @@ import imgFundoHeader from '../../assets/Login/fundoOficial.png';
 //Importando os icones
 import { Entypo } from '@expo/vector-icons';
 
+
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App({ navigation }) {

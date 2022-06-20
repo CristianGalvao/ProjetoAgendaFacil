@@ -72,28 +72,14 @@ export default function App() {
                 
                 >
 
-                    <Text style={{ color: "#04459b", fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>Localização:</Text>
-                    <Text style={{ color: "#04459b", marginLeft: 10, marginTop: 5 }}>Escolha aqui sua unidade favorita</Text>
+                    <Text style={{ color: "#04459b", fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>Localização</Text>
+                    <Text style={{ color: "#04459b", marginLeft: 10, marginTop: 5 }}>Consulte aqui sua unidade favorita</Text>
 
                 </TouchableOpacity>
 
             </View>
             
-            <View style={{ width: '90%', marginTop: 15, marginLeft: '5%' }}>
-
-                <TouchableOpacity style={{ width: '100%', backgroundColor: 'white', borderRadius: 30, padding: 15, borderWidth: 3, borderColor: '#04459b' }}
-                
-                
-                    onPress={()=> navigation.navigate("Pagamento")}
-                
-                >
-
-                    <Text style={{ color: "#04459b", fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>Forma de Pagamento</Text>
-                    <Text style={{ color: "#04459b", marginLeft: 10, marginTop: 5 }}>Gerencie quais cartões quer utilizar</Text>
-
-                </TouchableOpacity>
-
-            </View>
+        
 
             <View style={{ width: '90%', marginTop: 15, marginLeft: '5%' }}>
 

@@ -51,21 +51,66 @@ router.post('/usuario/cadastroUsuario', (req, res) => {
             (caminhoPerfil)=>{
                 res.send(caminhoPerfil)
             }
-        )
+        ).catch(function(){
+            console.log("ERRO")
+        })
         
+    });
+
+    router.put('/atualizarDadosPerfil/:idUsuario', (req, res)=>{
+
+        let {nome_usuario} = req.body;
+        let {endereco} = req.body;
+        let {complemento} = req.body;
+        let {telefone} = req.body;
+        let {idUsuario} = req.params;
+        let {numero} = req.body;
+
+        const sql = `UPDATE usuarios SET nome_usuario = '${nome_usuario}', numero = ${numero}, endereco = '${endereco}', complemento = '${complemento}', telefone = '${telefone}' 
+        WHERE idUsuario = ${idUsuario};`
+
+        Database.query(sql)
+        .then(
+            (atualizarDadosUsuarios)=>{
+                res.send(atualizarDadosUsuarios)
+                console.log(atualizarDadosUsuarios)
+            }
+        ).catch(function(){
+            res.send('erro')
+            console.log('erro')
+        })
+
     });
 
     router.get('/pegarImagemPerfil/:idUsuario', (req, res)=>{
         let {idUsuario} = req.params;
+
         const sql = `select fotoPerfil from usuarios where idUsuario = ${idUsuario};`
         Database.query(sql)
         .then(
             (caminhoImagem)=>{
                 res.send(caminhoImagem[0])
+                console.log(caminhoImagem[0])
             }
         ).catch(function(){
             console.log('erro')
+        });
+    });
+
+    router.get('/pegarDadosUsuario/:idUsuario', (req, res)=>{
+
+        let {idUsuario} = req.params;
+
+        const sql = `SELECT * FROM usuarios WHERE idUsuario = ${idUsuario};`
+        Database.query(sql)
+        .then(
+            (dadosUsuario)=>{
+                res.send(dadosUsuario[0])
+            }
+        ).catch(function(){
+            console.log("ERRO")
         })
-    })
+
+    });
 
     module.exports = router;

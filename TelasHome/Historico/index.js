@@ -42,7 +42,7 @@ export default function Historico({navigation, route}) {
 
 
     async function buscarHistorico() {
-        await fetch('http://192.168.0.101:3000/historico/agendado/' + idUsuario)
+        await fetch('http://10.0.3.178:3000/historico/agendado/' + idUsuario)
             .then(res => res.json())
             .then(res => {
                 setUsers(res);
@@ -55,7 +55,7 @@ export default function Historico({navigation, route}) {
     async function modalCancelamento() {
 
 
-        let response = await fetch('http://192.168.0.101:3000/cancelarAgendamento/' + id, {
+        let response = await fetch('http://10.0.3.178:3000/cancelarAgendamento/' + id, {
             method: 'PUT',
             headers: {
                 Accept: 'application/json',

@@ -65,7 +65,7 @@ export default function App() {
 
         if (senha === confirmarSenha && isValidCPF(cpf)) {
 
-            let response = await fetch('http://192.168.0.101:3000/usuario/cadastroUsuario', {
+            let response = await fetch('http://10.0.3.178:3000/usuario/cadastroUsuario', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -223,7 +223,7 @@ export default function App() {
                                     name="cpf"
                                 />
 
-                                {cpf  != ' '? mostrarMensagemCPF(): <Text></Text>}
+                                {isValidCPF(cpf)? <Text>Digite seu CPF válido</Text>: <Text>Digite um CPF válido</Text>}
                              
 
 

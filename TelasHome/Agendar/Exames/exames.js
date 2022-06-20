@@ -43,7 +43,7 @@ export default function Exames({navigation, route}) {
     const [especialidade, setEspecialidade] = useState();
 
     async function buscarEspecialidade() {
-        await fetch('http://192.168.0.101:3000/listarEspecialidades/exames')
+        await fetch('http://10.0.3.178:3000/listarEspecialidades/exames')
             .then(res => res.json())
             .then(res => {
                 setNomeEspecialidade(res)
@@ -63,7 +63,7 @@ export default function Exames({navigation, route}) {
 
     async function buscarProfissionais() {
 
-        await fetch('http://192.168.0.101:3000/listarProfissionaisEspecialidade/' + especialidade)
+        await fetch('http://10.0.3.178:3000/listarProfissionaisEspecialidade/' + especialidade)
             .then(res => res.json())
             .then(res => {
                 setNomeProfissional(res)
@@ -75,7 +75,7 @@ export default function Exames({navigation, route}) {
     const [unidade, setUnidade] = useState();
 
     async function buscarUnidades() {
-        await fetch('http://192.168.0.101:3000/listarUnidades')
+        await fetch('http://10.0.3.178:3000/listarUnidades')
             .then(res => res.json())
             .then(res => {
                 setNomeUnidades(res);
@@ -98,7 +98,7 @@ export default function Exames({navigation, route}) {
     const [horarioSelecionado, sethorarioSelecionado] = useState();
 
     async function buscarHorario() {
-        let response = await fetch('http://192.168.0.101:3000/buscarHorario/vacinas', {
+        let response = await fetch('http://10.0.3.178:3000/buscarHorario/vacinas', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -142,7 +142,7 @@ export default function Exames({navigation, route}) {
 
 
 
-        let response = await fetch('http://192.168.0.101:3000/agendar/consulta', {
+        let response = await fetch('http://10.0.3.178:3000/agendar/consulta', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -300,8 +300,11 @@ export default function Exames({navigation, route}) {
                         format="DD/MM/YYYY"
                         date={dia}
                         onDateChange={setDia}
-                        is24Hour={true} />
-
+                        is24Hour={true} 
+                        minDate={new Date(Date.now()+(10 * 60 * 1000))}
+                        
+                        />
+                        
 
 
                     <View style={styleAgenda.viewConsultaSelecione}>
