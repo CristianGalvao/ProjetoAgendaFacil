@@ -23,7 +23,7 @@ export default function App() {
 
 
   async function buscarProfissionais() {
-    await fetch('http://10.0.3.178:3000/listarProfissionais')
+    await fetch('http://192.168.0.105:3000/listarProfissionais')
       .then(res => res.json())
       .then(res => {
         setNomeProfissional(res)
@@ -67,12 +67,12 @@ export default function App() {
       <FlatList
         keyExtractor={(chave)=> chave.idProfissionais}
         data={nomeProfissional}
-
+       
         renderItem={({ item }) => (
           <ScrollView >
           <View  style={{ width: '90%', height: height / 10,marginLeft: '5%', marginBottom: 15, backgroundColor: 'white' }}>
          
-            <TouchableOpacity  style={{borderColor:  '#04459ba', borderWidth: 1, padding: 10, borderRadius: 10}}>
+            <TouchableOpacity keyExtractor={item.idProfissionais} style={{borderColor:  '#04459ba', borderWidth: 1, padding: 10, borderRadius: 10}}>
 
              
               

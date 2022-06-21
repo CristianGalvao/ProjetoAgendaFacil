@@ -14,7 +14,7 @@ export default function FaleConosco({navigation}){
 
         setEmail("projetoagendafacil@gmail.com")
 
-        let response = await fetch('http://10.0.3.178:3000/enviarEmailFaleConosco', {
+        let response = await fetch('http://192.168.0.105:3000/enviarEmailFaleConosco', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

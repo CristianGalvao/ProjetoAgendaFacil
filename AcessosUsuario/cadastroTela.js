@@ -21,13 +21,18 @@ import { useNavigation } from "@react-navigation/native";
 import DatePicker from 'react-native-datepicker';
 import { Icon } from 'react-native-elements';
 
-import { cpf } from 'cpf-cnpj-validator';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Warning: ...']); //Hide warnings
+
+LogBox.ignoreAllLogs();
 
 
 //Importando os icones
 import { Entypo } from '@expo/vector-icons';
 
 export default function App() {
+
 
     const navigation = useNavigation();
 
@@ -45,8 +50,8 @@ export default function App() {
     const [complemento, setComplemento] = useState(null);
     const [telefone, setTelefone] = useState(null);
     const [data_nascimento, setData_nascimento] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [senha, setSenha] = useState(null);
+    const [email, setEmail] = useState(' ');
+    const [senha, setSenha] = useState(' ');
     const [confirmarSenha, setConfirmarSenha] = useState(null);
     const [open, setOpen] = useState(false);
 
@@ -58,14 +63,19 @@ export default function App() {
         }
     )
 
+    function isEmailValid(email){
+       const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/
+       return re.test(String(email).toLowerCase())
+    }
+
     const { handleSubmit, control, errors } = useForm();
 
     async function enviarFormulario() {
 
 
-        if (senha === confirmarSenha && isValidCPF(cpf)) {
+        if (senha === confirmarSenha && isValidCPF(cpf) && isEmailValid(email) && senha.length > 6) {
 
-            let response = await fetch('http://10.0.3.178:3000/usuario/cadastroUsuario', {
+            let response = await fetch('http://192.168.0.105:3000/usuario/cadastroUsuario', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -207,7 +217,8 @@ export default function App() {
                                     control={control}
                                     rules={{
                                         maxLength: 14,
-                                        required: false
+                                        required: false,
+                                       
                                     }}
                                     render={({ field: { onChange, onBlur, value } }) =>
                                         <><MaterialCommunityIcons name="numeric" size={18} color="#0445ba" />
@@ -223,11 +234,9 @@ export default function App() {
                                     name="cpf"
                                 />
 
-                                {isValidCPF(cpf)? <Text>Digite seu CPF válido</Text>: <Text>Digite um CPF válido</Text>}
-                             
-
-
                             </View>
+
+                            {!isValidCPF(cpf) && cpf != ' ' ? <Text style={{ color: 'red', textAlign: 'left', marginLeft: '5%', marginTop: '3%' }}>CPF inválido</Text> : null}
 
                             <View style={styles.inputView}>
 
@@ -261,7 +270,7 @@ export default function App() {
                                                 onDateChange={setData_nascimento}
                                                 is24Hour={true}
                                                 placeholder="Data de Nascimento"
-
+                                                maxDate={moment().subtract(18, "years")._d}
 
 
                                             />
@@ -368,12 +377,14 @@ export default function App() {
                                 />
                             </View>
 
+                            {!isEmailValid(email) && email.length > 0 && email != ' '? <Text style={{ color: 'red', textAlign: 'left', marginLeft: '5%', marginTop: '3%' }}>E-mail não é válido </Text> : null}
+
                             <View style={styles.inputView}>
                                 <Controller
                                     control={control}
                                     rules={{
                                         maxLength: 15,
-                                        minLength: 8,
+                                        minLength: 6,
                                         required: true
                                     }}
                                     render={({ field: { onChange, onBlur, value } }) =>
@@ -402,6 +413,8 @@ export default function App() {
 
 
                             </View>
+
+                            {senha != ' ' && senha.length > 6 ? null : <Text style={{ color: 'red', textAlign: 'left', marginLeft: '5%', marginTop: '3%' }}>Digite uma senha com mais de 6 caracteres</Text>}
 
                             <View style={styles.inputView}>
                                 <Controller

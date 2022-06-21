@@ -31,6 +31,8 @@ import Localizacao from './TelasHome/Ajustes/localizacao/localizacao';
 //importações Home
 import FaleConosco from './TelasHome/Home/FaleConosco/faleConosco';
 
+import Unidades from './TelasHome/Home/unidades';
+
 //Profissionais
 import Profissionais from './TelasHome/Home/Profissionais/index';
 
@@ -43,7 +45,7 @@ export default function App() {
   return (
     <NavigationContainer>
 
-      <Stack.Navigator initialRouteName='perfil'>
+      <Stack.Navigator initialRouteName='login'>
 
         <Stack.Screen name="login" component={Login}
           options={{
@@ -52,6 +54,12 @@ export default function App() {
         />
 
         <Stack.Screen name="faleConosco" component={FaleConosco}
+          options={{
+            headerTitle: ' '
+          }}
+        />
+
+        <Stack.Screen name="unidades" component={Unidades}
           options={{
             headerTitle: ' '
           }}

@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Button,
+  Alert,
   Dimensions,
   Modal,
   Pressable,
@@ -20,11 +20,13 @@ import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Icon } from 'react-native-elements';
 
+import estiloPerfil from './estiloPerfil';
+
 //Importando os icones
 import { Entypo } from '@expo/vector-icons';
 
 
-export default function ProfileScreen1() {
+export default function ProfileScreen1({navigation}) {
 
   //CONSTANTE DADOS USUARIOS
   const [idUsuario, setIdUsuario] = useState();
@@ -49,7 +51,13 @@ export default function ProfileScreen1() {
     let response = await AsyncStorage.getItem('dadosUsuario');
     let json = JSON.parse(response);
     setIdUsuario(json.idUsuario);
+    setEndereco(json.endereco);
+    setNumero(json.numero);
+    setComplemento(json.complemento);
+    setTelefone(json.telefone);
+    setNomeUsuario(json.nome_usuario);
   }
+
 
   const [dadosUsuario, setDadosUsuario] = useState([]);
 
@@ -154,6 +162,7 @@ export default function ProfileScreen1() {
 
   function habilitarEdicaoCampos() {
     setHabilitarEdicao(!habilitarEdicao)
+    buscarDadosUsuario()
 
   }
 
@@ -234,6 +243,9 @@ export default function ProfileScreen1() {
 
             </View>
 
+            <Entypo onPress={()=>habilitarEdicaoCampos()} name='edit' style={{textAlign: 'right', marginRight: '5%', fontSize: 20}}/>
+
+
             <View style={styles.inputView}>
 
               <Icon
@@ -245,7 +257,7 @@ export default function ProfileScreen1() {
 
               />
 
-              <TextInput style={{ flex: 1, paddingHorizontal: 12 }}>
+              <TextInput editable={habilitarEdicao} onChangeText={setNomeUsuario} style={{ flex: 1, paddingHorizontal: 12 }}>
 
                 {
                   dadosUsuario.map((buscar) =>
@@ -263,23 +275,119 @@ export default function ProfileScreen1() {
               <Icon
 
                 color='blue'
-                name="user"
+                name="home"
                 type='font-awesome'
                 size={20}
 
               />
 
-                <TextInput style={{ flex: 1, paddingHorizontal: 12 }}>
+              <TextInput editable={habilitarEdicao} onChangeText={setEndereco} style={{ flex: 1, paddingHorizontal: 12 }}>
 
                 {
                   dadosUsuario.map((buscar) =>
                     <Text key={idUsuario}>{buscar.endereco}</Text>
                   )
                 }
-                
+
               </TextInput>
 
             </View>
+
+            <View style={styles.inputView}>
+
+              <Icon
+
+                color='blue'
+                name="home"
+                type='font-awesome'
+                size={20}
+
+              />
+
+              <TextInput editable={habilitarEdicao} onChangeText={setComplemento} style={{ flex: 1, paddingHorizontal: 12 }}>
+
+                {
+                  dadosUsuario.map((buscar) =>
+                    <Text key={idUsuario}>{buscar.complemento}</Text>
+                  )
+                }
+
+              </TextInput>
+
+            </View>
+
+            <View style={styles.inputView}>
+
+              <Entypo
+
+                color='blue'
+                name="location-pin"
+                type='font-awesome'
+                size={20}
+
+              />
+
+              <TextInput editable={habilitarEdicao} onChangeText={setNumero} style={{ flex: 1, paddingHorizontal: 12 }}>
+
+                {
+                  dadosUsuario.map((buscar) =>
+                    <Text key={idUsuario}>{buscar.numero}</Text>
+                  )
+                }
+
+              </TextInput>
+
+            </View>
+
+            <View style={styles.inputView}>
+
+              <Entypo
+
+                color='blue'
+                name="phone"
+                type='font-awesome'
+                size={20}
+
+              />
+
+              <TextInput editable={habilitarEdicao} onChangeText={setTelefone} style={{ flex: 1, paddingHorizontal: 12 }}>
+
+                {
+                  dadosUsuario.map((buscar) =>
+                    <Text key={idUsuario}>{buscar.telefone}</Text>
+                  )
+                }
+
+              </TextInput>
+
+            </View>
+
+            <View style={styles.inputView}>
+
+              <Entypo
+
+                color='blue'
+                name="flow-cascade"
+                type='font-awesome'
+                size={20}
+
+              />
+
+              <TextInput editable={false} style={{ flex: 1, paddingHorizontal: 12 }}>
+
+                {
+                  dadosUsuario.map((buscar) =>
+                    <Text key={idUsuario}>{buscar.cpf}</Text>
+                  )
+                }
+
+              </TextInput>
+
+            </View>
+
+            {habilitarEdicao === true ? <TouchableOpacity onPress={()=>salvarAlteracoesDados()} style={estiloPerfil.botaoSalvar}><Text style={{ color: 'white', fontWeight: 'bold' }}>Salvar</Text></TouchableOpacity> : null}
+
+
           </View>
 
         </>
@@ -388,6 +496,7 @@ const styles = StyleSheet.create({
     marginTop: -100,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    marginBottom: 30
   },
   profileImageView: { alignItems: 'center', marginTop: -50 },
   profileImage: {

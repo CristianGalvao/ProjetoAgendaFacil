@@ -34,15 +34,19 @@ export default function Historico({navigation, route}) {
 
         }
         pegarUsuario();
-        buscarHistorico();
+     
 
     }, [idUsuario])
+
+    useEffect(()=>{
+        buscarHistorico();
+    },[idUsuario])
 
     const [id, setId] = useState()
 
 
     async function buscarHistorico() {
-        await fetch('http://10.0.3.178:3000/historico/agendado/' + idUsuario)
+        await fetch('http://192.168.0.105:3000/historico/agendado/' + idUsuario)
             .then(res => res.json())
             .then(res => {
                 setUsers(res);
@@ -55,7 +59,7 @@ export default function Historico({navigation, route}) {
     async function modalCancelamento() {
 
 
-        let response = await fetch('http://10.0.3.178:3000/cancelarAgendamento/' + id, {
+        let response = await fetch('http://192.168.0.105:3000/cancelarAgendamento/' + id, {
             method: 'PUT',
             headers: {
                 Accept: 'application/json',
@@ -134,7 +138,7 @@ export default function Historico({navigation, route}) {
 
             </View>
 
-            <Entypo name="cycle" style={{ marginRight: "5%", fontSize: 25, marginTop: 10, marginBottom: 10, color: '#04459b', textAlign: 'right' }}
+            <Entypo name="cycle" style={{ marginRight: "5%", fontSize: 25, marginTop: 5, marginBottom: 5, color: '#04459b', textAlign: 'right' }}
 
                 onPress={() => buscarHistorico()}
 
@@ -152,7 +156,7 @@ export default function Historico({navigation, route}) {
 
                         <ScrollView style={{ width: '100%', padding: 5 }}>
 
-                            <TouchableOpacity style={{ borderRadius: 10, borderColor: 'blue', borderWidth: 1, width: '90%', marginBottom: 15, marginLeft: '5%', display: 'flex', justifyContent: 'space-between', padding: 10, flexDirection: 'row' }}>
+                            <TouchableOpacity style={{ borderRadius: 10, borderColor: 'blue', borderWidth: 1, width: '90%', marginBottom: 5, marginLeft: '5%', display: 'flex', justifyContent: 'space-between', padding: 10, flexDirection: 'row' }}>
 
                                 <View style={{ width: '50%', height: 'auto' }}>
 
@@ -165,15 +169,6 @@ export default function Historico({navigation, route}) {
                                 </View>
 
                                 <View style={{ width: '50%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-
-
-
-                                    <View style={{ width: '40%', height: '40%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-
-                                        <Entypo name="eye" color="blue" style={{ fontSize: 24 }} />
-                                        <Text style={{ fontWeight: 'bold', fontSize: 13, color: 'blue' }}>Visualizar</Text>
-
-                                    </View>
 
                                     <TouchableOpacity onPress={() => setModalVisible(true)} style={{ width: '40%', height: '40%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 5 }}>
 

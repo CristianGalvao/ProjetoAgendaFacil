@@ -51,7 +51,7 @@ export default function App({ navigation }) {
             {/* Botoes interativos */}
             <View style={estilo.ViewBotoesInterativos}>
 
-                <TouchableOpacity style={estilo.botaoUnidades}>
+                <TouchableOpacity onPress={()=> navigation.navigate('unidades')} style={estilo.botaoUnidades}>
 
                     <Text style={estilo.txtBotaoUnidade}>Buscar Unidades</Text>
                     <Text style={estilo.subTxtBotaoUnidade}>Clique aqui e encontre a unidade mais proxima de você!</Text>
@@ -62,7 +62,7 @@ export default function App({ navigation }) {
                 <View style={estilo.botoesPerfilExame}>
 
                     {/* Botao Perfil e Exames */}
-                    <TouchableOpacity style={estilo.botaoPerfil}>
+                    <TouchableOpacity onPress={()=> navigation.navigate('exames')} style={estilo.botaoPerfil}>
 
                         <Text style={estilo.txtBotaoUnidade}>Exames</Text>
                         <Text style={estilo.subTxtBotaoUnidade}>Acesse seus exames!</Text>
@@ -71,7 +71,7 @@ export default function App({ navigation }) {
 
                     {/* Perfil */}
 
-                    <TouchableOpacity style={estilo.botaoExame}>
+                    <TouchableOpacity onPress={()=> navigation.navigate('perfil')} style={estilo.botaoExame}>
 
                         <Text style={estilo.txtBotaoUnidade}>Perfil</Text>
                         <Text style={estilo.subTxtBotaoUnidade}>Acesse suas informações!</Text>
@@ -98,7 +98,7 @@ export default function App({ navigation }) {
 
                 </TouchableOpacity>
 
-                <TouchableOpacity style={estilo.meuServicos} onPress={() => navigation.navigate("consultas")}>
+                <TouchableOpacity  style={estilo.meuServicos} onPress={() => navigation.navigate("historico")}>
 
                     <Entypo name="text" size={28} />
                     <Text style={{ fontSize: 13, color: 'black' }}>Consultas</Text>
