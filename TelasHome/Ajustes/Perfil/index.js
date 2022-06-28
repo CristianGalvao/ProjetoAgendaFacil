@@ -62,7 +62,7 @@ export default function ProfileScreen1({navigation}) {
   const [dadosUsuario, setDadosUsuario] = useState([]);
 
   async function buscarDadosUsuario() {
-    await fetch('http://192.168.0.105:3000/pegarDadosUsuario/' + idUsuario)
+    await fetch('http://10.0.3.178:3000/pegarDadosUsuario/' + idUsuario)
       .then(res => res.json())
       .then(
         res => {
@@ -75,7 +75,7 @@ export default function ProfileScreen1({navigation}) {
   }
 
   async function pegarFotoPerfil() {
-    let response = await fetch('http://192.168.0.105:3000/pegarImagemPerfil/' + idUsuario)
+    let response = await fetch('http://10.0.3.178:3000/pegarImagemPerfil/' + idUsuario)
       .then(res => res.json())
       .then(
         res => {
@@ -85,7 +85,7 @@ export default function ProfileScreen1({navigation}) {
   }
 
   async function setUserImage(image) {
-    let response = await fetch('http://192.168.0.105:3000/cadastrarImagemPerfil', {
+    let response = await fetch('http://10.0.3.178:3000/cadastrarImagemPerfil', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -139,7 +139,7 @@ export default function ProfileScreen1({navigation}) {
 
     setImage("semFoto")
 
-    let response = await fetch('http://192.168.0.105:3000/cadastrarImagemPerfil', {
+    let response = await fetch('http://10.0.3.178:3000/cadastrarImagemPerfil', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -167,7 +167,7 @@ export default function ProfileScreen1({navigation}) {
   }
 
   async function salvarAlteracoesDados() {
-    let response = await fetch('http://192.168.0.105:3000/atualizarDadosPerfil/' + idUsuario, {
+    let response = await fetch('http://10.0.3.178:3000/atualizarDadosPerfil/' + idUsuario, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',

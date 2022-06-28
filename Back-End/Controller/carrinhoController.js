@@ -53,4 +53,21 @@ router.delete('/deletarAguardandoPagamento', (req, res)=>{
 
 });
 
+router.put('/realizarPagamentoPendente', (req, res)=>{
+
+    let {idUsuario} = req.body;
+
+
+    const sql = `UPDATE agendar SET status = "Agendado" WHERE idUsuario = ${idUsuario} and status = "Aguardando pagamento";`
+    Database.query(sql)
+    .then(
+        ()=>{
+            res.send('DADOS ATUALIZADOS')
+        }
+    ).catch(function(){
+        console.log('erro')
+    });
+
+});
+
 module.exports = router;

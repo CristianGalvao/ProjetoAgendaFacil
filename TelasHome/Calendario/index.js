@@ -177,7 +177,7 @@ export default class AgendaScreen extends Component {
                     }}
                 />
 
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('home')} style={{ backgroundColor: 'white', position: 'absolute', borderRadius: 50, width: 50, height: 50, zIndex: 50, right: 20, bottom: 20, alignItems: 'center', elevation: 20 }} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('escolhaServico')} style={{ backgroundColor: 'white', position: 'absolute', borderRadius: 50, width: 50, height: 50, zIndex: 50, right: 20, bottom: 20, alignItems: 'center', elevation: 20 }} >
                     <AntDesign name="pluscircle" color='#283747' size={50} />
                 </TouchableOpacity>
             </View>

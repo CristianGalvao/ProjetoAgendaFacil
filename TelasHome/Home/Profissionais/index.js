@@ -23,7 +23,7 @@ export default function App() {
 
 
   async function buscarProfissionais() {
-    await fetch('http://192.168.0.105:3000/listarProfissionais')
+    await fetch('http://10.0.3.178:3000/listarProfissionais')
       .then(res => res.json())
       .then(res => {
         setNomeProfissional(res)

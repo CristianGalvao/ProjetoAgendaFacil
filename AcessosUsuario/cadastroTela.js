@@ -75,7 +75,7 @@ export default function App() {
 
         if (senha === confirmarSenha && isValidCPF(cpf) && isEmailValid(email) && senha.length > 6) {
 
-            let response = await fetch('http://192.168.0.105:3000/usuario/cadastroUsuario', {
+            let response = await fetch('http://10.0.3.178:3000/usuario/cadastroUsuario', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -236,7 +236,6 @@ export default function App() {
 
                             </View>
 
-                            {!isValidCPF(cpf) && cpf != ' ' ? <Text style={{ color: 'red', textAlign: 'left', marginLeft: '5%', marginTop: '3%' }}>CPF inválido</Text> : null}
 
                             <View style={styles.inputView}>
 
@@ -377,7 +376,6 @@ export default function App() {
                                 />
                             </View>
 
-                            {!isEmailValid(email) && email.length > 0 && email != ' '? <Text style={{ color: 'red', textAlign: 'left', marginLeft: '5%', marginTop: '3%' }}>E-mail não é válido </Text> : null}
 
                             <View style={styles.inputView}>
                                 <Controller
@@ -414,7 +412,6 @@ export default function App() {
 
                             </View>
 
-                            {senha != ' ' && senha.length > 6 ? null : <Text style={{ color: 'red', textAlign: 'left', marginLeft: '5%', marginTop: '3%' }}>Digite uma senha com mais de 6 caracteres</Text>}
 
                             <View style={styles.inputView}>
                                 <Controller
@@ -450,6 +447,9 @@ export default function App() {
                             </View>
 
                             {confirmarSenha == senha ? <Text style={{ display: "none" }}></Text> : <Text style={{ color: 'red', textAlign: 'left', marginLeft: '5%', marginTop: '3%' }}>Senha e confirmar senha não coincidem</Text>}
+                            {!isEmailValid(email) && email.length > 0 && email != ' '? <Text style={{ color: 'red', textAlign: 'left', marginLeft: '5%', marginTop: '3%' }}>E-mail não é válido </Text> : null}
+                            {!isValidCPF(cpf) && cpf != ' ' ? <Text style={{ color: 'red', textAlign: 'left', marginLeft: '5%', marginTop: '3%' }}>CPF inválido</Text> : null}
+                            {senha != ' ' && senha.length > 6 ? null : <Text style={{ color: 'red', textAlign: 'left', marginLeft: '5%', marginTop: '3%' }}>Digite uma senha com mais de 6 caracteres</Text>}
 
                             <TouchableOpacity
                                 style={styles.btnCadastrar}

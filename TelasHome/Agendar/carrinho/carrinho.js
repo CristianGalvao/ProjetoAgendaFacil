@@ -40,7 +40,7 @@ export default function PaymentScreen1({ navigation, route }) {
   const [atualizarHistorico, setAtualizar] = useState(false)
   async function AtualizarStatus() {
 
-    let response = await fetch('http://192.168.0.105:3000/agendar/atualizar/' + idUsuario + '/' + id, {
+    let response = await fetch('http://10.0.3.178:3000/agendar/atualizar/' + idUsuario + '/' + id, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',

@@ -23,11 +23,29 @@ export default function PaymentScreen1({ navigation, route }) {
 
 
     
-    function carrinhoVazio(){
-        navigation.navigate('consultaAgendar')
-        Alert.alert("Carrinho", "seu carrinho está vázio, Faça uma consulta")
+    // function carrinhoVazio(){
+    //     navigation.navigate('home')
+    //     Alert.alert("Carrinho", "seu carrinho está vázio, Faça uma consulta")
 
-    }
+    // }
+
+    async function AtualizarStatus() {
+
+        let response = await fetch('http://10.0.3.178:3000/realizarPagamentoPendente', {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idUsuario: idUsuario
+          })
+        })
+
+        Alert.alert("Pagamento", "Realizamento realizado");
+        navigation.navigate('home')
+
+      }
     
 
     useEffect(
@@ -51,7 +69,7 @@ export default function PaymentScreen1({ navigation, route }) {
     const [dadosPendentes, setDadosPendentes] = useState([]);
 
     async function buscarAgendamentosPendentes() {
-        await fetch('http://192.168.0.105:3000/carrinho/aguardandoPagamento/' + idUsuario)
+        await fetch('http://10.0.3.178:3000/carrinho/aguardandoPagamento/' + idUsuario)
             .then(res => res.json())
             .then(res => {
                 setDadosPendentes(res)
@@ -61,7 +79,7 @@ export default function PaymentScreen1({ navigation, route }) {
     const [dadosPendentesPreco, setDadosPendentesPreco] = useState([]);
 
     async function buscarAgendamentosPendentesPreco() {
-        await fetch('http://192.168.0.105:3000/somarPrecoPendencia/' + idUsuario)
+        await fetch('http:/10.0.3.178:3000/somarPrecoPendencia/' + idUsuario)
             .then(res => res.json())
             .then(res => {
                 setDadosPendentesPreco(res)
@@ -70,7 +88,7 @@ export default function PaymentScreen1({ navigation, route }) {
 
     async function removerAgendamentoPendente() {
 
-        await fetch('http://192.168.0.105:3000/deletarAguardandoPagamento', {
+        await fetch('http://10.0.3.178:3000/deletarAguardandoPagamento', {
             method: 'DELETE',
             headers: {
                 Accept: 'application/json',
@@ -82,20 +100,20 @@ export default function PaymentScreen1({ navigation, route }) {
             })
         });
 
-        navigation.navigate('home')
+       buscarAgendamentosPendentes()
 
     }
 
     useEffect(
         () => {
             buscarAgendamentosPendentes()
-        }, []
+        }, [idUsuario]
     )
 
     useEffect(
         () => {
             buscarAgendamentosPendentesPreco()
-        }, []
+        }, [idUsuario]
     )
 
     return (
@@ -124,7 +142,7 @@ export default function PaymentScreen1({ navigation, route }) {
 
                         <FlatList
 
-                            ListEmptyComponent={carrinhoVazio()}
+                            // ListEmptyComponent={carrinhoVazio()}
                             data={dadosPendentes}
                             renderItem={({ item }) => (
                             
@@ -181,7 +199,7 @@ export default function PaymentScreen1({ navigation, route }) {
 
 
                     </View>
-                    <TouchableOpacity style={styles.checkoutButton} >
+                    <TouchableOpacity onPress={()=>AtualizarStatus() } style={styles.checkoutButton} >
                         <Text style={styles.checkoutButtonText}>
                             Processar Pagamento
                         </Text>

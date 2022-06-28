@@ -15,7 +15,7 @@ export default function App() {
   const [nomeUnidades, setNomeUnidades] = useState([]);
 
   async function buscarUnidades() {
-    await fetch('http://192.168.0.105:3000/listarUnidades')
+    await fetch('http://10.0.3.178:3000/listarUnidades')
       .then(res => res.json())
       .then(res => {
         setNomeUnidades(res)

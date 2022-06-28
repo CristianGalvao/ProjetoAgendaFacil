@@ -71,7 +71,13 @@ export default function App() {
           }}
         />
 
-        <Stack.Screen name='carrinhoHome' component={CarrinhoHome} />
+        <Stack.Screen name='carrinhoHome' component={CarrinhoHome} 
+        
+        options={{
+          headerTitle: ' '
+        }}
+          
+          />
 
         <Stack.Screen name="profissionais" component={Profissionais}
           options={{
